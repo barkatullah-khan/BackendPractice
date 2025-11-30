@@ -9,6 +9,7 @@ import userRouter from './routes/user.route.js'
 
 // route declaration
 app.use("/api/v1/users",userRouter)
+console.log("User routes loaded:", userRouter.stack.map(r => r.route?.path));
 
 //example route:http://localhost:4000/api/v1/users/register
 

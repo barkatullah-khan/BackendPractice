@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const userSchema=new mongoose.Schema(
     {
         username: {
@@ -23,7 +24,7 @@ const userSchema=new mongoose.Schema(
             type:String,
             required:[true,'Password is required!'],
             minLength:8,
-            maxLength:40
+            maxLength:80
 
         },
 
