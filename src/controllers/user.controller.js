@@ -96,10 +96,43 @@ export const loginUser = async (req, res) => {
       message: "Login successful",
       userId: user._id,
       username: user.username
+      
     });
 
   } catch (error) {
     console.error("🔥 Error in loginUser:", error.message);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message
+    });
+  }
+};
+  
+export const logoutUser = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // 1. Find user and update their loggedIn status to false
+    const user = await User.findOneAndUpdate(
+      { email: email.toLowerCase() },
+      { $set: { loggedIn: false } },
+      { new: true } // returns the updated document
+    );
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Logout successful",
+    });
+
+  } catch (error) {
     return res.status(500).json({
       success: false,
       message: "Internal server error",
